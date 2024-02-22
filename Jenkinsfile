@@ -1,4 +1,9 @@
 pipeline {
+    environment {
+        registry = "nhat416/react-app-demo"
+        registryCredential = 'dockerhub_id'
+        dockerImage = ''
+    }
     agent any
 
     stages {
@@ -11,7 +16,7 @@ pipeline {
             steps {
                 echo 'Building Docker image...'
                 script {
-                    docker.build("nhat416/react-app-demo:latest")
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
             }
         }
@@ -23,6 +28,17 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo "Deploying..."
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                    }
             }
-    }   }
+       }
+       stage('Clean up') {
+           steps {
+               echo 'Cleaning up...'
+               sh 'docker rmi $registry:$BUILD_NUMBER'
+           }
+       }
+   }
 }
