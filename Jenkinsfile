@@ -11,7 +11,7 @@ pipeline {
             steps {
                 echo 'Building Docker image...'
                 script {
-                    docker.withServer('tcp://docker-dind:2375') {
+                    docker.withServer('tcp://docker:2375') {
                         docker.build("nhat416/react-app-demo:latest")
                     }
                 }
