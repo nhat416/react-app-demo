@@ -10,7 +10,11 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building Docker image...'
-                sh 'docker image build -t nhat416/react-app-demo:latest .'
+                script {
+                    docker.withServer('unix:///var/run/docker.sock') {
+                        docker.build("nhat416/react-app-demo:latest")
+                    }
+                }
             }
         }
         stage('Test') {
