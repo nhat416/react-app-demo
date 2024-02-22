@@ -9,7 +9,8 @@ pipeline {
         }
         stage('Build') {
             steps {
-                echo 'Building...'
+                echo 'Building Docker image...'
+                sh 'docker image build -t nhat416/react-app-demo:latest .'
             }
         }
         stage('Test') {
