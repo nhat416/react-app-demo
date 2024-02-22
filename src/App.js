@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          WeCloud DevOps - Nhat Demo - version 19
+          WeCloud DevOps - Nhat Demo - version 20
         </p>
         <p>
           Edit <code>src/App.js</code> and save to reload.
